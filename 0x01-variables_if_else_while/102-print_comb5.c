@@ -3,33 +3,45 @@
 #include <unistd.h>
 
 /**
+ * alx_putnbr - prints numbers < 1000
+ * @n: first parameter
+ */
+void	alx_putnbr(int n)
+{
+	if (n < 10)
+	{
+		putchar('0');
+		putchar('0' + n);
+	}
+	else
+	{
+		putchar('0' + n / 10);
+		putchar('0' + n % 10);
+	}
+}
+
+/**
  * main - main function
  * Return: 0 if the program finish whitout errors
  */
 int	main(void)
 {
-	int	i;
+	int i;
 	int	j;
-	int	m;
 
 	i = 0;
-	while (i < 10)
+	while (i < 100)
 	{
 		j = i + 1;
-		while (j < 10)
+		while (j < 100)
 		{
-			m = j + 1;
-			while (m < 10)
+			alx_putnbr(i);
+			putchar(' ');
+			alx_putnbr(j);
+			if (i != 98 || j != 99)
 			{
-				putchar('0' + i);
-				putchar('0' + j);
-				putchar('0' + m);
-				if (i != 7 || j != 8 || m != 9)
-				{
-					putchar(',');
-					putchar(' ');
-				}
-				m++;
+				putchar(',');
+				putchar(' ');
 			}
 			j++;
 		}
