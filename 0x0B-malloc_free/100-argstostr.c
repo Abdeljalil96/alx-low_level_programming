@@ -1,52 +1,50 @@
 #include "main.h"
-
+#include <stdlib.h>
 /**
- * _strcat - Function that concatenates two strings.
- * @dest: Arg 1.
- * @src: Arg 2.
- * Return: A pointer to the resulting string.
- */
-char	*_strcat(char *dest, char *src)
+  *argstostr - concatenates all arguments of the program.
+  *@ac: argument count.
+  *@av: pointer to array of size ac.
+  *Return: NULL if ac == 0 or av == null, Pointer to new string.
+  *NULL on fail.
+  */
+char *argstostr(int ac, char **av)
 {
-	int	i;
-	int	y;
+	int i, j, k, size;
+	char *arg;
 
+	size = 0;
+	k = 0;
+	if (ac == 0 || av == NULL)
+		return (NULL);
 	i = 0;
-	y = 0;
-	while (dest[i])
+	while (i < ac)
+	{
+		j = 0;
+		while (av[i][j])
+		{
+			size++;
+			j++;
+		}
+		size++;
 		i++;
-	while (src[y])
-		dest[i++] = src[y++];
-	dest[i] = '\n';
-	dest[i + 1] = '\0';
-	return (dest);
-}
-
-/**
- * argstostr - function that concatenates two strings.
- * @ac: Arg 1.
- * @av: Arg 1.
- * Return: Returns a pointer to the array.
- */
-char	*argstostr(int ac, char **av)
-{
-	char		*str;
-	int			i;
-	size_t		len;
-
-	i = 0;
-	len = 0;
-	if (ac <= 0 || !av)
+	}
+	arg = malloc((sizeof(char) * size) + 1);
+	if (arg == NULL)
 		return (NULL);
-	while (i < ac)
-		len += strlen(av[i++]) + 1;
-	str = malloc(len + 1);
-	if (!str)
-		return (NULL);
-	str[0] = '\0';
 	i = 0;
 	while (i < ac)
-		_strcat(str, av[i++]);
-	str[len] = '\0';
-	return (str);
+	{
+		j = 0;
+		while (av[i][j])
+		{
+			arg[k] = av[i][j];
+			j++;
+			k++;
+		}
+		arg[k] = '\n';
+		k++;
+		i++;
+	}
+	arg[k] = '\0';
+	return (arg);
 }
